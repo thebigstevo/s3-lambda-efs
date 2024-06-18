@@ -15,7 +15,7 @@ provider "aws" {
 
 terraform {
   backend "remote" {
-    organization = "thebigstevo"
+    organization = "bigspark"
 
     workspaces {
       name = "s3-lambda-efs"
