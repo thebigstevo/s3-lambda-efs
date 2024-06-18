@@ -1,7 +1,27 @@
+#configure required providers
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+#configure the AWS provider
 provider "aws" {
   region = "eu-west-1"
 }
 
+terraform {
+  backend "remote" {
+    organization = "thebigstevo"
+
+    workspaces {
+      name = "s3-lambda-efs"
+    }
+  }
+}
 data "aws_vpc" "myvpc" {
     id= "vpc-0e6c3c7402f44285d"
   
