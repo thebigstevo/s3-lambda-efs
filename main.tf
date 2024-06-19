@@ -1,7 +1,7 @@
-# data "aws_vpc" "myvpc" {
-#     id= "vpc-0a9cd782fa83afa83"
+data "aws_vpc" "myvpc" {
+    id= "vpc-0a9cd782fa83afa83"
   
-# }
+}
 resource "aws_s3_bucket" "receiving_bucket" {
   bucket= "sle24-bucket"
 }
