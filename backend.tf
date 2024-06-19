@@ -1,6 +1,6 @@
 terraform {
   cloud {
-    organization = "thebigstevo"
+    organization = "bigspark"
 
     workspaces {
       name = "s3-lambda-efs"
