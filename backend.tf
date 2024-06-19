@@ -1,9 +1,9 @@
-terraform {
-  cloud {
-    organization = "bigspark"
+# terraform {
+#   cloud {
+#     organization = "bigspark"
 
-    workspaces {
-      name = "s3-lambda-efs"
-    }
-  }
-}
+#     workspaces {
+#       name = "s3-lambda-efs"
+#     }
+#   }
+# }
