@@ -1,5 +1,5 @@
 data "aws_vpc" "myvpc" {
-    id= "vpc-0e6c3c7402f44285d"
+    id= "vpc-0a9cd782fa83afa83"
   
 }
 # resource "aws_s3_bucket" "receiving_bucket" {
