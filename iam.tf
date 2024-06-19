@@ -1,6 +1,6 @@
 resource "aws_iam_role" "lambda_role" {
   name = "lambda_s3_efs_role"
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
       {
@@ -17,34 +17,34 @@ resource "aws_iam_role" "lambda_role" {
 resource "aws_iam_policy" "lambda_policy" {
   name = "lambda_s3_efs_policy"
   description = "Policy for Lambda to access S3 and EFS"
-  policy = jsondecode({
-    "Version": "2012-10-17",
-    "Statement": [
+  policy = jsonencode({
+    Version= "2012-10-17",
+    Statement= [
       {
-        "Effect": "Allow",
-        "Action": [
+        Effect="Allow",
+        Action= [
           "s3:GetObject",
           "s3:ListBucket"
         ],
-        "Resource": "*"
+        Resource= "*"
       },
       {
-        "Effect": "Allow",
-        "Action": [
+        Effect= "Allow",
+        Action= [
           "elasticfilesystem:ClientMount",
           "elasticfilesystem:ClientWrite"
         ],
-        "Resource": "*"
+        Resource= "*"
       },
       { 
-        "Effect": "Allow", 
-        "Action": [
+        Effect= "Allow", 
+        Action= [
             "logs:CreateLogStream",
             "logs:PutLogEvents",
             "logs:CreateLogGroup", 
         ],
             
-            "Resource": "*"
+        Resource= "*"
              }
       
     ]
