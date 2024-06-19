@@ -1,67 +1,67 @@
 resource "aws_iam_role" "lambda_role" {
   name = "lambda_s3_efs_role"
   assume_role_policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Action": "sts:AssumeRole",
-        "Principal": {
-          "Service": "lambda.amazonaws.com"
+        "Action" : "sts:AssumeRole",
+        "Principal" : {
+          "Service" : "lambda.amazonaws.com"
         },
-        "Effect": "Allow",
+        "Effect" : "Allow",
       }
     ]
   })
 }
 
 resource "aws_iam_policy" "lambda_policy" {
-  name = "lambda_s3_efs_policy"
+  name        = "lambda_s3_efs_policy"
   description = "Policy for Lambda to access S3 and EFS"
   policy = jsonencode({
-    Version= "2012-10-17",
-    Statement= [
+    Version = "2012-10-17",
+    Statement = [
       {
-        Effect="Allow",
-        Action= [
-                "s3:Get*",
-                "s3:List*",
-                "s3:Describe*",
-                "s3-object-lambda:Get*",
-                "s3-object-lambda:List*"
+        Effect = "Allow",
+        Action = [
+          "s3:Get*",
+          "s3:List*",
+          "s3:Describe*",
+          "s3-object-lambda:Get*",
+          "s3-object-lambda:List*"
         ],
-        Resource= "*"
+        Resource = "*"
       },
       {
-        Effect= "Allow",
-        Action= [
+        Effect = "Allow",
+        Action = [
           "elasticfilesystem:ClientMount",
           "elasticfilesystem:ClientWrite",
           "elasticfilesystem:DescribeMountTargets"
         ],
-        Resource= "*"
+        Resource = "*"
       },
-      { 
-        Effect= "Allow", 
-        Action= [
-            "logs:CreateLogStream",
-            "logs:PutLogEvents",
-            "logs:CreateLogGroup", 
+      {
+        Effect = "Allow",
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "logs:CreateLogGroup",
         ],
-            
-        Resource= "*"
-             },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ec2:CreateNetworkInterface",
-                "ec2:DescribeNetworkInterfaces",
-                "ec2:DetachNetworkInterface",
-                "ec2:DeleteNetworkInterface"
-            ],
-            "Resource": "*"
-        }
+
+        Resource = "*"
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DetachNetworkInterface",
+          "ec2:DeleteNetworkInterface"
+        ],
+        "Resource" : "*"
+      }
     ]
-  }
+    }
   )
 }
 
