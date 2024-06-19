@@ -2,9 +2,9 @@
 #     id= "vpc-0a9cd782fa83afa83"
   
 # }
-resource "aws_s3_bucket" "receiving_bucket" {
-  bucket= "sle24-bucket"
-}
+# resource "aws_s3_bucket" "receiving_bucket" {
+#   bucket= "sle24-bucket"
+# }
 
 # resource "aws_efs_file_system" "efs_vol" {
 #   lifecycle_policy {
