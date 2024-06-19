@@ -23,8 +23,11 @@ resource "aws_iam_policy" "lambda_policy" {
       {
         Effect="Allow",
         Action= [
-          "s3:GetObject",
-          "s3:ListBucket"
+                "s3:Get*",
+                "s3:List*",
+                "s3:Describe*",
+                "s3-object-lambda:Get*",
+                "s3-object-lambda:List*"
         ],
         Resource= "*"
       },
@@ -32,7 +35,8 @@ resource "aws_iam_policy" "lambda_policy" {
         Effect= "Allow",
         Action= [
           "elasticfilesystem:ClientMount",
-          "elasticfilesystem:ClientWrite"
+          "elasticfilesystem:ClientWrite",
+          "elasticfilesystem:DescribeMountTargets"
         ],
         Resource= "*"
       },
@@ -45,8 +49,17 @@ resource "aws_iam_policy" "lambda_policy" {
         ],
             
         Resource= "*"
-             }
-      
+             },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DetachNetworkInterface",
+                "ec2:DeleteNetworkInterface"
+            ],
+            "Resource": "*"
+        }
     ]
   }
   )
