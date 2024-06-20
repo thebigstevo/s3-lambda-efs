@@ -37,3 +37,7 @@ resource "aws_security_group" "efs_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+output "subnet_ids" {
+  value = data.aws_subnet_ids.my_subnets.ids
+}
