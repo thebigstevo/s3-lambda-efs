@@ -8,7 +8,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   vpc_config {
     vpc_id = data.aws_vpc.myvpc.id
     subnet_ids = data.aws_subnets.my_subnets.ids
-    security_group_ids = [ aws_security_group.efs_sg ]
+    security_group_ids = [ aws_security_group.efs_sg.id ]
   }
   environment {
     variables = {
