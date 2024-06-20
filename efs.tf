@@ -5,14 +5,14 @@ resource "aws_efs_file_system" "efs_vol" {
   }
 }
 
-#commented below for later
-# resource "aws_efs_mount_target" "efs_mt" {
-#   for_each = toset(data.aws_subnets.my_subnets.*.id)
 
-#   file_system_id  = aws_efs_file_system.efs_vol.id
-#   subnet_id       = each.value
-#   security_groups = [aws_security_group.efs_sg.id]
-# }
+resource "aws_efs_mount_target" "efs_mt" {
+  for_each = toset(data.aws_subnets.my_subnets.id)
+
+  file_system_id  = aws_efs_file_system.efs_vol.id
+  subnet_id       = each.value
+  security_groups = [aws_security_group.efs_sg.id]
+}
 
 resource "aws_efs_access_point" "efs_ap" {
   file_system_id = aws_efs_file_system.efs_vol.id
