@@ -5,7 +5,11 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   runtime = "python3.11"
   filename = "s3_to_lambda_to_efs.zip"
   source_code_hash = filebase64sha256("s3_to_lambda_to_efs.zip")
-
+  vpc_config {
+    vpc_id = data.aws_vpc.vpc.id
+    subnet_ids = data.aws_subnet_ids.subnets.ids
+    security_group_ids = [ aws_security_group.efs_sg ]
+  }
   environment {
     variables = {
       aws_efs_access_point= aws_efs_access_point.efs_ap.id
