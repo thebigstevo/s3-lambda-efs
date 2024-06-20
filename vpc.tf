@@ -4,10 +4,10 @@ data "aws_vpc" "myvpc" {
 
 }
 
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "5.8.1"
-}
+# module "vpc" {
+#   source  = "terraform-aws-modules/vpc/aws"
+#   version = "5.8.1"
+# }
 
 data "aws_subnets" "my_subnets" {
   filter {
