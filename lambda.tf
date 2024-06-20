@@ -7,7 +7,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   source_code_hash = filebase64sha256("s3_to_lambda_to_efs.zip")
   vpc_config {
     vpc_id = data.aws_vpc.myvpc.id
-    subnet_ids = data.aws_subnet.my_subnets.ids
+    subnet_ids = data.aws_subnets.my_subnets.ids
     security_group_ids = [ aws_security_group.efs_sg ]
   }
   environment {
