@@ -39,5 +39,5 @@ resource "aws_security_group" "efs_sg" {
 }
 
 output "subnet_ids" {
-  value = data.aws_subnet_ids.my_subnets.ids
+  value = data.aws_subnets.my_subnets.ids
 }
