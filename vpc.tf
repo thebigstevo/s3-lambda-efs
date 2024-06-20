@@ -1,3 +1,16 @@
+data "aws_vpc" "myvpc" {
+  id = var.vpc_id
+
+}
+
+data "aws_subnets" "my_subnets" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.myvpc.id]
+  }
+}
+
+
 #EFS security group
 resource "aws_security_group" "efs_sg" {
   name_prefix = "efs_sg"
