@@ -46,7 +46,7 @@ resource "aws_efs_access_point" "efs_ap" {
     }
   }
   tags = {
-        Name = "s3tolto-efs-access-point"
+    Name = "s3tolto-efs-access-point"
 
   }
 }
