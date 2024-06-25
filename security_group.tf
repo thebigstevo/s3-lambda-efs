@@ -1,14 +1,14 @@
 #EFS security group
 resource "aws_security_group" "efs_sg" {
   name_prefix = "efs_sg"
-  vpc_id      = data.aws_vpc.myvpc.id
+  vpc_id      = aws_vpc.s3toefs-vpc.id
   description = "EFS security group"
 
   ingress {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    cidr_blocks = [data.aws_vpc.myvpc.cidr_block]
+    cidr_blocks = [aws_vpc.s3toefs-vpc.cidr_block]
   }
 
   egress {
@@ -17,10 +17,6 @@ resource "aws_security_group" "efs_sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-output "subnet_ids" {
-  value = data.aws_subnets.my_subnets.ids
 }
 
 
