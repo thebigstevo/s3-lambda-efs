@@ -13,7 +13,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
     # subnet_ids= [data.aws_subnet.mysubnet[0].id, data.aws_subnet.mysubnet[1].id, ...]
 
     # Option 2: Using for expression
-    subnet_ids = [ for subnet in data.aws_subnet.mysubnet : subnet.id ]
+    subnet_ids = [ aws_subnet.public-subnet-1.id,aws_subnet.public-subnet-2,aws_subnet.public-subnet-3]
   }
   environment {
     variables = {
@@ -26,4 +26,12 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
     
   }
 }
+
+# resource "aws_lambda_permission" "with_s3" { 
+#   statement_id  = "s3invokelambda"
+#   action        = "lambda:InvokeFunction"
+#   function_name = aws_lambda_function.s3tolambdatoefs.arn
+#   principal     = "s3.amazonaws.com"
+#   source_arn    = aws_s3_bucket.receiving_bucket.arn
+# }
 
