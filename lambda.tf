@@ -13,7 +13,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
     # subnet_ids= [data.aws_subnet.mysubnet[0].id, data.aws_subnet.mysubnet[1].id, ...]
 
     # Option 2: Using for expression
-    subnet_ids = [ aws_subnet.public-subnet-1.id,aws_subnet.public-subnet-2,aws_subnet.public-subnet-3]
+    subnet_ids = [ aws_subnet.public-subnet-1.id,aws_subnet.public-subnet-2.id,aws_subnet.public-subnet-3.id]
   }
   environment {
     variables = {
