@@ -22,3 +22,16 @@ resource "aws_security_group" "efs_sg" {
 output "subnet_ids" {
   value = data.aws_subnets.my_subnets.ids
 }
+
+
+resource "aws_security_group" "ec2-sg" {
+  vpc_id = var.vpc_id
+  name = "ec2-sg"
+  description = "EC2 security group"
+  ingress {
+    from_port = 2049
+    to_port = 2049
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
