@@ -27,11 +27,11 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   }
 }
 
-# resource "aws_lambda_permission" "with_s3" { 
-#   statement_id  = "s3invokelambda"
-#   action        = "lambda:InvokeFunction"
-#   function_name = aws_lambda_function.s3tolambdatoefs.arn
-#   principal     = "s3.amazonaws.com"
-#   source_arn    = aws_s3_bucket.receiving_bucket.arn
-# }
+resource "aws_lambda_permission" "with_s3" { 
+  statement_id  = "s3invokelambda"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.s3tolambdatoefs.arn
+  principal     = "s3.amazonaws.com"
+  source_arn    = aws_s3_bucket.receiving_bucket.arn
+}
 
