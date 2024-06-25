@@ -8,7 +8,7 @@ resource "aws_vpc" "s3toefs-vpc" {
 }
 
 resource "aws_subnet" "public-subnet-1" {
-  cidr_block = var.vpc_cidr
+  cidr_block = var.subnet-1-cidr
   vpc_id = aws_vpc.s3toefs-vpc.id
   availability_zone = var.availability-zone-1
   tags = {
@@ -17,7 +17,7 @@ resource "aws_subnet" "public-subnet-1" {
 }
 
 resource "aws_subnet" "public-subnet-2" {
-  cidr_block = var.vpc_cidr
+  cidr_block = var.subnet-2-cidr
   vpc_id = aws_vpc.s3toefs-vpc.id
   availability_zone = var.availability-zone-2
   tags = {
@@ -26,7 +26,7 @@ resource "aws_subnet" "public-subnet-2" {
 }
 
 resource "aws_subnet" "public-subnet-3" {
-  cidr_block = var.vpc_cidr
+  cidr_block = var.subnet-3-cidr
   vpc_id = aws_vpc.s3toefs-vpc.id
   availability_zone = var.availability-zone-3
   tags = {

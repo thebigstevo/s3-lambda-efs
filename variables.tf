@@ -25,3 +25,15 @@ variable "availability-zone-2" {
 variable "availability-zone-3" {
   default = "eu-west-1c"
 }
+
+variable "subnet-1-cidr" {
+  default = "10.0.1.0/24"
+}
+
+variable "subnet-2-cidr" {
+  default = "10.0.2.0/24"
+}
+
+variable "subnet-3-cidr" {
+  default = "10.0.3.0/24"
+}
