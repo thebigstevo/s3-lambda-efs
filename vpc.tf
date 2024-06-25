@@ -16,6 +16,18 @@ resource "aws_subnet" "public-subnet-1" {
   }
 }
 
+
+output "subnet-1" {
+  value = aws_subnet.public-subnet-1.cidr_block
+}
+
+output "subnet-2" {
+  value = aws_subnet.public-subnet-2.cidr_block
+}
+
+output "subnet-3" {
+  value = aws_subnet.public-subnet-3.cidr_block
+}
 resource "aws_subnet" "public-subnet-2" {
   cidr_block = var.subnet-2-cidr
   vpc_id = aws_vpc.s3toefs-vpc.id
