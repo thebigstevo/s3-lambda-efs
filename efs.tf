@@ -3,6 +3,9 @@ resource "aws_efs_file_system" "efs_vol" {
   lifecycle_policy {
     transition_to_ia = "AFTER_30_DAYS"
   }
+  tags = {
+    Name = "s3tolto-efs-file-system"
+  }
 }
 
 
@@ -41,5 +44,9 @@ resource "aws_efs_access_point" "efs_ap" {
       owner_uid   = 1000
       permissions = "755"
     }
+  }
+  tags = {
+        Name = "s3tolto-efs-access-point"
+
   }
 }
