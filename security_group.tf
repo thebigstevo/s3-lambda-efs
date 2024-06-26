@@ -31,3 +31,16 @@ resource "aws_security_group" "ec2-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_security_group" "lambda_sg" {
+  name_prefix = "lambda_sg"
+  vpc_id      = aws_vpc.s3toefs_vpc.id
+  description = "Lambda security group"
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

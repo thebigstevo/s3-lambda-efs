@@ -8,11 +8,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
 
   source_code_hash = filebase64sha256("s3_to_lambda_to_efs.zip")
   vpc_config {
-    security_group_ids = [aws_security_group.efs_sg.id]
-    # Option 1: Using Indexing
-    # subnet_ids= [data.aws_subnet.mysubnet[0].id, data.aws_subnet.mysubnet[1].id, ...]
-
-    # Option 2: Using for expression
+    security_group_ids = [aws_security_group.lambda_sg.id]
     subnet_ids = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
   }
   environment {
