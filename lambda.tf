@@ -4,7 +4,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.8"
   filename      = "s3_to_lambda_to_efs.zip"
-  timeout       = "60"
+  timeout       = "300"
 
   source_code_hash = filebase64sha256("s3_to_lambda_to_efs.zip")
   vpc_config {
