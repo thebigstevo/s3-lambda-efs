@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "s3tolambdatoefs" {
   function_name = "s3_to_lambda_to_efs"
-  handler       = "lambda_function.lambda_handler"
+  handler       = "s3tolambdatoefs.lambda_handler"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.8"
   filename      = "s3_to_lambda_to_efs.zip"
