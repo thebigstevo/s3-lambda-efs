@@ -21,7 +21,7 @@ resource "aws_security_group" "efs_sg" {
 
 
 resource "aws_security_group" "ec2-sg" {
-  vpc_id      = var.vpc_id
+  vpc_id      = aws_vpc.s3toefs-vpc.id
   name        = "ec2-sg"
   description = "EC2 security group"
   ingress {
@@ -34,7 +34,7 @@ resource "aws_security_group" "ec2-sg" {
 
 resource "aws_security_group" "lambda_sg" {
   name_prefix = "lambda_sg"
-  vpc_id      = aws_vpc.s3toefs_vpc.id
+  vpc_id      = aws_vpc.s3toefs-vpc.id
   description = "Lambda security group"
 
   egress {
