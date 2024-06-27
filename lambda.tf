@@ -7,7 +7,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   timeout       = "300"
   memory_size   = "1024"
 
-  source_code_hash = filebase64sha256("s3_to_lambda_to_efs.zip")
+  source_code_hash = filebase64sha256("module/lambda/s3_to_lambda_to_efs.zip")
   vpc_config {
     security_group_ids = [aws_security_group.lambda_sg.id]
     subnet_ids         = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
