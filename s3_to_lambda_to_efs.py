@@ -1,7 +1,7 @@
-import json
 import boto3
 import os
 import shutil
+import time
 
 s3 = boto3.client('s3')
 
@@ -9,37 +9,34 @@ s3 = boto3.client('s3')
 efs_mount_path = '/mnt/efs'
 
 def lambda_handler(event, context):
-    # Local variable store bucket name
-    bucket = 's3-to-efs-logesh081098'
-
     try:
-        # List objects in the specified S3 bucket
-        response = s3.list_objects(Bucket=bucket)
+        start_time = time.time()
+        for record in event['Records']:
+            bucket = record['s3']['bucket']['name']
+            key = record['s3']['object']['key']
 
-        # Print the list of objects (if any)
-        if 'Contents' in response:
-            for obj in response['Contents']:
-                print(f"Object Key: {obj['Key']}, Last Modified: {obj['LastModified']}")
+            print(f"Processing file: s3://{bucket}/{key}")
 
-            # Example: Download the first object in the list
-            if len(response['Contents']) > 0:
-                first_object_key = response['Contents'][0]['Key']
-                download_response = s3.get_object(Bucket=bucket, Key=first_object_key)
-                content = download_response['Body'].read().decode('utf-8')
-                print(f"Content of the first object: {content}")
+            # Download the file from S3 to the /tmp directory
+            tmp_path = f'/tmp/{os.path.basename(key)}'
+            s3.download_file(bucket, key, tmp_path)
+            print(f"File downloaded to /tmp: {tmp_path}")
 
-                # Store the downloaded content in the /tmp directory
-                tmp_path = f'/tmp/{os.path.basename(first_object_key)}'
-                with open(tmp_path, 'w') as file:
-                    file.write(content)
-                print(f"File stored in /tmp: {tmp_path}")
+            # Ensure the EFS directory exists
+            efs_dir = os.path.dirname(os.path.join(efs_mount_path, key))
+            if not os.path.exists(efs_dir):
+                os.makedirs(efs_dir)
+                print(f"Created EFS directory: {efs_dir}")
 
-                # Copy the file from /tmp to EFS
-                destination_path = os.path.join(efs_mount_path, os.path.basename(first_object_key))
-                shutil.copy(tmp_path, destination_path)
-                print(f"File copied to EFS: {destination_path}")
+            # Copy the file from /tmp to EFS
+            destination_path = os.path.join(efs_mount_path, key)
+            shutil.copy(tmp_path, destination_path)
+            print(f"File copied to EFS: {destination_path}")
+
+            elapsed_time = time.time() - start_time
+            print(f"Time taken to process {key}: {elapsed_time:.2f} seconds")
 
     except Exception as e:
         print(f"Error: {str(e)}")
 
-    print('List, download, store in /tmp, and copy to EFS completed')
+    print('File processing completed')
