@@ -20,41 +20,65 @@ resource "aws_iam_policy" "lambda_policy" {
   name        = "lambda_s3_efs_policy"
   description = "Policy for Lambda to access S3 and EFS"
   policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        Effect = "Allow",
-        Action = [
-          "s3:*",
-        ],
-        Resource = "*"
-      },
-      {
-        Effect = "Allow",
-        Action = [
-          "elasticfilesystem:ClientMount",
-          "elasticfilesystem:ClientWrite",
-          "elasticfilesystem:DescribeMountTargets"
-        ],
-        Resource = "*"
-      },
-      {
-        Effect = "Allow",
-        Action = [
-          "logs:CreateLogStream",
-          "logs:PutLogEvents",
-          "logs:CreateLogGroup",
-        ],
-
-        Resource = "*"
-      },
-      {
+        "Sid" : "lambdavpcacces",
         "Effect" : "Allow",
         "Action" : [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
           "ec2:CreateNetworkInterface",
           "ec2:DescribeNetworkInterfaces",
-          "ec2:DetachNetworkInterface",
-          "ec2:DeleteNetworkInterface"
+          "ec2:DescribeSubnets",
+          "ec2:DeleteNetworkInterface",
+          "ec2:AssignPrivateIpAddresses",
+          "ec2:UnassignPrivateIpAddresses"
+        ],
+        "Resource" : "*"
+      },
+      {
+        "Sid" : "lambdaexecutionpolicy",
+        "Effect" : "Allow",
+        "Action" : [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+          "s3-object-lambda:WriteGetObjectResponse"
+        ],
+        "Resource" : "*"
+      },
+      {
+        "Sid" : "s3bucketlist",
+        "Effect" : "Allow",
+        "Action" : [
+          "s3:ListBucket",
+          "s3:PutObject",
+          "s3:GetObject"
+        ],
+        "Resource" : [
+          "arn:aws:s3:::*",
+          "arn:aws:s3:::*/*"
+        ]
+      },
+      {
+        "Sid" : "efsaccess",
+        "Effect" : "Allow",
+        "Action" : [
+          "elasticfilesystem:ClientWrite",
+          "elasticfilesystem:ClientRootAccess",
+          "elasticfilesystem:DescribeFileSystems",
+          "elasticfilesystem:ClientRead",
+          "elasticfilesystem:DescribeMountTargets"
+        ],
+        "Resource" : "*"
+      },
+      {
+        "Sid" : "invokelambda",
+        "Effect" : "Allow",
+        "Action" : [
+          "lambda:InvokeFunction"
         ],
         "Resource" : "*"
       }
