@@ -3,11 +3,11 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   handler       = "s3_to_lambda_to_efs.lambda_handler"
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.8"
-  filename      = "module/lambda/s3_to_lambda_to_efs.zip"
+  filename      = "s3_to_lambda_to_efs.zip"
   timeout       = "300"
   memory_size   = "1024"
 
-  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+  source_code_hash = "s3_to_lambda_to_efs"
   vpc_config {
     security_group_ids = [aws_security_group.lambda_sg.id]
     subnet_ids         = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
@@ -24,11 +24,11 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   }
 }
 
-data "archive_file" "lambda_zip" {
- type = "zip"
- source_dir = "module/lambda"
- output_path = "module/lambda/s3_to_lambda_to_efs.zip"
-}
+# data "archive_file" "lambda_zip" {
+#  type = "zip"
+#  source_dir = "module/lambda"
+#  output_path = "module/lambda/s3_to_lambda_to_efs.zip"
+# }
 resource "aws_lambda_permission" "with_s3" {
   statement_id  = "s3invokelambda"
   action        = "lambda:InvokeFunction"
