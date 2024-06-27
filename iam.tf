@@ -23,11 +23,7 @@ resource "aws_iam_policy" "lambda_policy" {
       {
         Effect = "Allow",
         Action = [
-          "s3:Get*",
-          "s3:List*",
-          "s3:Describe*",
-          "s3-object-lambda:Get*",
-          "s3-object-lambda:List*"
+          "s3:*",
         ],
         Resource = "*"
       },
