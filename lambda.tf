@@ -27,7 +27,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
 data "archive_file" "lambda_zip" {
  type = "zip"
  source_dir = "module/lambda"
- output_path = "s3_to_lambda_to_efs.zip"
+ output_path = "module/lambda/s3_to_lambda_to_efs.zip"
 }
 resource "aws_lambda_permission" "with_s3" {
   statement_id  = "s3invokelambda"
