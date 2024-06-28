@@ -53,9 +53,7 @@ resource "aws_iam_policy" "lambda_policy" {
         "Sid" : "s3bucketlist",
         "Effect" : "Allow",
         "Action" : [
-          "s3:ListBucket",
-          "s3:PutObject",
-          "s3:GetObject"
+          "s3:*"
         ],
         "Resource" : [
           "arn:aws:s3:::*",
