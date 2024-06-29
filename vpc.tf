@@ -1,3 +1,4 @@
+# VPC
 resource "aws_vpc" "s3toefs-vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
@@ -7,6 +8,7 @@ resource "aws_vpc" "s3toefs-vpc" {
   }
 }
 
+# Subnets
 resource "aws_subnet" "public-subnet-1" {
   cidr_block        = var.subnet-1-cidr
   vpc_id            = aws_vpc.s3toefs-vpc.id
@@ -34,6 +36,7 @@ resource "aws_subnet" "public-subnet-3" {
   }
 }
 
+# Internet Gateway
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.s3toefs-vpc.id
   tags = {
@@ -41,6 +44,7 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
+# Route Table for Public Subnets
 resource "aws_route_table" "public-route-table" {
   vpc_id = aws_vpc.s3toefs-vpc.id
   route {
@@ -51,7 +55,7 @@ resource "aws_route_table" "public-route-table" {
     Name = "${var.project_name}-public-route-table"
   }
 }
-
+# Route Table Association
 resource "aws_route_table_association" "subnet-1-association" {
   route_table_id = aws_route_table.public-route-table.id
   subnet_id      = aws_subnet.public-subnet-1.id
