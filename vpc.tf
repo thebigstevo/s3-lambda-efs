@@ -13,6 +13,7 @@ resource "aws_subnet" "public-subnet-1" {
   cidr_block        = var.subnet-1-cidr
   vpc_id            = aws_vpc.s3toefs-vpc.id
   availability_zone = var.availability-zone-1
+  map_public_ip_on_launch = true
   tags = {
     Name = "${var.project_name}-public-subnet-1"
   }
@@ -22,6 +23,7 @@ resource "aws_subnet" "public-subnet-2" {
   cidr_block        = var.subnet-2-cidr
   vpc_id            = aws_vpc.s3toefs-vpc.id
   availability_zone = var.availability-zone-2
+  map_public_ip_on_launch = true
   tags = {
     Name = "${var.project_name}-public-subnet-2"
   }
@@ -31,6 +33,7 @@ resource "aws_subnet" "public-subnet-3" {
   cidr_block        = var.subnet-3-cidr
   vpc_id            = aws_vpc.s3toefs-vpc.id
   availability_zone = var.availability-zone-3
+  map_public_ip_on_launch = true
   tags = {
     Name = "${var.project_name}-public-subnet-3"
   }
