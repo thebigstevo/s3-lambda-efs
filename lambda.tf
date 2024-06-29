@@ -23,7 +23,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
 
   }
 
-  depends_on = [ aws_efs_access_point.efs_ap ]
+  depends_on = [ aws_efs_access_point.efs_ap, aws_efs_access_point.efs_ap ]
 }
 
 # data "archive_file" "lambda_zip" {
