@@ -1,6 +1,8 @@
 import boto3
 import os
 import time
+import tempfile
+
 
 s3_client = boto3.client('s3')
 efs_client = boto3.client('efs')
@@ -35,14 +37,21 @@ def lambda_handler(event, context):
             # Get EFS file path
             destination_path = os.path.join('/mnt/efs', key)
 
-            # Directly upload file from S3 to EFS using EFS API
-            with open(f's3://{bucket}/{key}', 'rb') as s3_file:
-                efs_client.put_object(
-                    FileSystemId=get_filesystem_id('/mnt/efs'),
-                    Body=s3_file,
-                    Key=key
-                )
-            print(f"File copied to EFS: {destination_path}")
+            # Download S3 object to a temporary file
+            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                s3_client.download_file(bucket, key, temp_file.name)
+
+                # Directly upload the content from temporary file to EFS
+                with open(temp_file.name, 'rb') as s3_file:
+                    efs_client.put_object(
+                        FileSystemId=get_filesystem_id('/mnt/efs'),
+                        Body=s3_file,
+                        Key=key
+                    )
+                print(f"File copied to EFS: {destination_path}")
+
+            # Clean up the temporary file (optional, happens automatically on deletion)
+            os.remove(temp_file.name)
 
             # Calculate elapsed time
             elapsed_time = time.time() - start_time
@@ -53,3 +62,4 @@ def lambda_handler(event, context):
         print(f"Error processing file: {str(e)}")
 
     print('File processing completed')
+
