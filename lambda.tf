@@ -23,10 +23,15 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
 
   }
 
-  depends_on = [ aws_efs_access_point.efs_ap, aws_efs_access_point.efs_ap ]
+  depends_on = [ aws_efs_access_point.efs_ap,
+    aws_efs_mount_target.efs_mt-1,
+    aws_efs_mount_target.efs_mt-2,
+    aws_efs_mount_target.efs_mt-3,
+    aws_efs_access_point.efs_ap,
+    aws_efs_file_system.efs_vol, ]
 }
 
-# data "archive_file" "lambda_zip" {
+# data "archive_file" "lambda_zip" {Í
 #  type = "zip"
 #  source_dir = "module/lambda"
 #  output_path = "module/lambda/s3_to_lambda_to_efs.zip"
