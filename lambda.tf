@@ -22,6 +22,8 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
     local_mount_path = "/mnt/efs"
 
   }
+
+  depends_on = [ aws_efs_access_point.efs_ap ]
 }
 
 # data "archive_file" "lambda_zip" {
