@@ -60,19 +60,20 @@ resource "aws_iam_policy" "lambda_policy" {
           "arn:aws:s3:::*/*"
         ]
       },
-      # {
-      #   "Sid" : "efsaccess",
-      #   "Effect" : "Allow",
-      #   "Action" : [
-      #     "elasticfilesystem:ClientWrite",
-      #     "elasticfilesystem:ClientMount",
-      #     "elasticfilesystem:ClientRootAccess",
-      #     "elasticfilesystem:DescribeFileSystems",
-      #     "elasticfilesystem:ClientRead",
-      #     "elasticfilesystem:DescribeMountTargets"
-      #   ],
-      #   "Resource" : "*"
-      # },
+      {
+        "Sid" : "efsaccess",
+        "Effect" : "Allow",
+        "Action" : [
+          "elasticfilesystem:*",
+          # "elasticfilesystem:ClientWrite",
+          # "elasticfilesystem:ClientMount",
+          # "elasticfilesystem:ClientRootAccess",
+          # "elasticfilesystem:DescribeFileSystems",
+          # "elasticfilesystem:ClientRead",
+          # "elasticfilesystem:DescribeMountTargets"
+        ],
+        "Resource" : "*"
+      },
       {
         "Sid" : "invokelambda",
         "Effect" : "Allow",
@@ -89,10 +90,4 @@ resource "aws_iam_policy" "lambda_policy" {
 resource "aws_iam_role_policy_attachment" "lambda_role_attachment" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.lambda_policy.arn
-}
-
-# Attach the managed policy to the role
-resource "aws_iam_role_policy_attachment" "lambda_role_attachment" {
-  role       = aws_iam_role.lambda_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemReadWriteAccess"
 }
