@@ -8,7 +8,7 @@ resource "aws_security_group" "efs_sg" {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    security_groups = [aws_security_group.lambda_sg.id]
+    cidr_blocks = [aws_vpc.s3toefs-vpc.cidr_block]  # Allow traffic from within the VPC
   }
 
   egress {
@@ -29,7 +29,7 @@ resource "aws_security_group" "lambda_sg" {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    security_groups = [aws_security_group.efs_sg.id]
+    cidr_blocks = [aws_vpc.s3toefs-vpc.cidr_block]  # Allow traffic from within the VPC
   }
 
   egress {
