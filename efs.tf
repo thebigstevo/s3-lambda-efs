@@ -9,6 +9,7 @@ resource "aws_efs_file_system" "efs_vol" {
 }
 
 
+# EFS mount targets
 resource "aws_efs_mount_target" "efs_mt-1" {
   file_system_id  = aws_efs_file_system.efs_vol.id
   subnet_id       = aws_subnet.public-subnet-1.id
@@ -27,9 +28,9 @@ resource "aws_efs_mount_target" "efs_mt-3" {
   security_groups = [aws_security_group.efs_sg.id]
 }
 
+# EFS access point
 resource "aws_efs_access_point" "efs_ap" {
   file_system_id = aws_efs_file_system.efs_vol.id
-
 
   posix_user {
     gid = 1000
@@ -45,8 +46,8 @@ resource "aws_efs_access_point" "efs_ap" {
       permissions = "755"
     }
   }
+
   tags = {
     Name = "s3tolto-efs-access-point"
-
   }
 }
