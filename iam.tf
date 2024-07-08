@@ -65,6 +65,7 @@ resource "aws_iam_policy" "lambda_policy" {
         "Effect" : "Allow",
         "Action" : [
           "elasticfilesystem:ClientWrite",
+          "elasticfilesystem:ClientMount",
           "elasticfilesystem:ClientRootAccess",
           "elasticfilesystem:DescribeFileSystems",
           "elasticfilesystem:ClientRead",
