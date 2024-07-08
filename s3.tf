@@ -4,6 +4,16 @@ resource "aws_s3_bucket" "receiving_bucket" {
   force_destroy = true
 }
 
+resource "aws_vpc_endpoint" "s3_endpoint" {
+  vpc_id       = aws_vpc.s3toefs-vpc.id
+  service_name = "com.amazonaws.${var.region}.s3"
+  route_table_ids = [aws_route_table.public-route-table.id]
+
+  tags = {
+    Name = "${var.project_name}-s3-endpoint"
+  }
+}
+
 # S3 bucket notification
 resource "aws_s3_bucket_notification" "s3toltoefs_notification" {
   bucket = aws_s3_bucket.receiving_bucket.id
