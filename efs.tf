@@ -33,16 +33,16 @@ resource "aws_efs_access_point" "efs_ap" {
   file_system_id = aws_efs_file_system.efs_vol.id
 
   posix_user {
-    gid = 1000
-    uid = 1000
+    gid = 1001
+    uid = 1001
   }
 
   root_directory {
     path = "/"
 
     creation_info {
-      owner_gid   = 1000
-      owner_uid   = 1000
+      owner_gid   = 1001
+      owner_uid   = 1001
       permissions = "777"
     }
   }
