@@ -9,13 +9,13 @@ resource "aws_iam_role" "lambda_role" {
         "Principal" : {
           "Service" : "lambda.amazonaws.com"
         },
-        "Effect" : "Allow",
+        "Effect" : "Allow"
       }
     ]
   })
 }
 
-# IAM policy for Lambda
+# IAM Policy for Lambda
 resource "aws_iam_policy" "lambda_policy" {
   name        = "lambda_s3_efs_policy"
   description = "Policy for Lambda to access S3 and EFS"
@@ -23,7 +23,7 @@ resource "aws_iam_policy" "lambda_policy" {
     "Version" : "2012-10-17",
     "Statement" : [
       {
-        "Sid" : "lambdavpcacces",
+        "Sid" : "lambdavpcaccess",
         "Effect" : "Allow",
         "Action" : [
           "logs:CreateLogGroup",
@@ -64,13 +64,12 @@ resource "aws_iam_policy" "lambda_policy" {
         "Sid" : "efsaccess",
         "Effect" : "Allow",
         "Action" : [
-          "elasticfilesystem:*",
-          # "elasticfilesystem:ClientWrite",
-          # "elasticfilesystem:ClientMount",
-          # "elasticfilesystem:ClientRootAccess",
-          # "elasticfilesystem:DescribeFileSystems",
-          # "elasticfilesystem:ClientRead",
-          # "elasticfilesystem:DescribeMountTargets"
+          "elasticfilesystem:ClientMount",
+          "elasticfilesystem:ClientWrite",
+          "elasticfilesystem:ClientRootAccess",
+          "elasticfilesystem:ClientRead",
+          "elasticfilesystem:DescribeFileSystems",
+          "elasticfilesystem:DescribeMountTargets"
         ],
         "Resource" : "*"
       },
@@ -83,10 +82,10 @@ resource "aws_iam_policy" "lambda_policy" {
         "Resource" : "*"
       }
     ]
-    }
-  )
+  })
 }
-# Attach the IAM policy to the role
+
+# Attach the IAM Policy to the Role
 resource "aws_iam_role_policy_attachment" "lambda_role_attachment" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.lambda_policy.arn
