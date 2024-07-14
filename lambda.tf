@@ -38,6 +38,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   ]
 }
 
+
 # Lambda permissions for S3
 resource "aws_lambda_permission" "with_s3" {
   statement_id  = "s3invokelambda"
