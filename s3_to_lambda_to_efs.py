@@ -2,28 +2,10 @@ import boto3
 import os
 import time
 import tempfile
-
+import shutil
+from botocore.exceptions import ClientError
 
 s3_client = boto3.client('s3')
-efs_client = boto3.client('efs')
-
-def get_filesystem_id(efs_mount_path):
-    efs = boto3.client('efs')
-    
-    # Split the mount path to extract the file system ID
-    parts = efs_mount_path.split('/')
-    file_system_id = parts[2]
-    
-    # Verify the file system ID
-    try:
-        response = efs.describe_file_systems(FileSystemId=file_system_id)
-        if response['FileSystems']:
-            return file_system_id
-        else:
-            raise ValueError(f"File system {file_system_id} not found")
-    except Exception as e:
-        print(f"Error getting file system ID: {str(e)}")
-        raise
 
 def lambda_handler(event, context):
     try:
@@ -37,21 +19,35 @@ def lambda_handler(event, context):
             # Get EFS file path
             destination_path = os.path.join('/mnt/efs', key)
 
-            # Download S3 object to a temporary file
-            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                s3_client.download_file(bucket, key, temp_file.name)
+            try:
+                # Check if the S3 object exists
+                s3_client.head_object(Bucket=bucket, Key=key)
 
-                # Directly upload the content from temporary file to EFS
-                with open(temp_file.name, 'rb') as s3_file:
-                    efs_client.put_object(
-                        FileSystemId=get_filesystem_id('/mnt/efs'),
-                        Body=s3_file,
-                        Key=key
-                    )
-                print(f"File copied to EFS: {destination_path}")
+                # Download S3 object to a temporary file
+                with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                    s3_client.download_file(bucket, key, temp_file.name)
 
-            # Clean up the temporary file (optional, happens automatically on deletion)
-            os.remove(temp_file.name)
+                    # Create the destination directory if it does not exist
+                    os.makedirs(os.path.dirname(destination_path), exist_ok=True)
+
+                    # Copy the temporary file to the EFS mount
+                    shutil.copy2(temp_file.name, destination_path)
+                    print(f"File copied to EFS: {destination_path}")
+
+                    # Clean up the temporary file
+                    os.remove(temp_file.name)
+
+            except ClientError as e:
+                if e.response['Error']['Code'] == '404' or e.response['Error']['Code'] == 'NoSuchKey':
+                    print(f"File not found: s3://{bucket}/{key}")
+                elif e.response['Error']['Code'] == 'AccessDenied':
+                    print(f"Access denied for file: s3://{bucket}/{key}")
+                else:
+                    print(f"Error processing file: s3://{bucket}/{key}, Error: {str(e)}")
+                    raise e
+            except Exception as e:
+                print(f"Error copying file to EFS: {str(e)}")
+                raise e
 
             # Calculate elapsed time
             elapsed_time = time.time() - start_time
@@ -62,4 +58,3 @@ def lambda_handler(event, context):
         print(f"Error processing file: {str(e)}")
 
     print('File processing completed')
-
