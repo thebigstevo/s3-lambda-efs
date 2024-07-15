@@ -5,8 +5,8 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   role          = aws_iam_role.lambda_role.arn
   runtime       = "python3.9"
   filename      = "s3_to_lambda_to_efs.zip"
-  timeout       = "900" # Increased to the maximum timeout
-  memory_size   = "1024"
+  timeout       = "120"
+  memory_size   = "128"
 
   source_code_hash = "s3_to_lambda_to_efs"
   vpc_config {
