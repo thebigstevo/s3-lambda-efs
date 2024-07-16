@@ -12,19 +12,19 @@ resource "aws_efs_file_system" "efs_vol" {
 # EFS mount targets
 resource "aws_efs_mount_target" "efs_mt-1" {
   file_system_id  = aws_efs_file_system.efs_vol.id
-  subnet_id       = aws_subnet.public-subnet-1.id
+  subnet_id       = var.public_subnet_1_id
   security_groups = [aws_security_group.efs_sg.id]
 }
 
 resource "aws_efs_mount_target" "efs_mt-2" {
   file_system_id  = aws_efs_file_system.efs_vol.id
-  subnet_id       = aws_subnet.public-subnet-2.id
+  subnet_id       = var.public_subnet_2_id
   security_groups = [aws_security_group.efs_sg.id]
 }
 
 resource "aws_efs_mount_target" "efs_mt-3" {
   file_system_id  = aws_efs_file_system.efs_vol.id
-  subnet_id       = aws_subnet.public-subnet-3.id
+  subnet_id       = var.public_subnet_3_id
   security_groups = [aws_security_group.efs_sg.id]
 }
 

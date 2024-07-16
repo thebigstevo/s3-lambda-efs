@@ -12,7 +12,9 @@ module "lambda" {
 
 module "efs" {
   source     = "./modules/efs"
- 
+  public_subnet_1_id = module.vpc.public_subnet_1_id
+  public_subnet_2_id = module.vpc.public_subnet_2_id
+  public_subnet_3_id = module.vpc.public_subnet_3_id
   depends_on = [module.vpc]
 }
 
