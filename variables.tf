@@ -42,9 +42,3 @@ variable "subnet-3-cidr" {
   default = "10.0.3.0/24"
 }
 
-
-# root_module/variables.tf
-variable "tags" {
-  description = "A map of tags to apply to all resources."
-  type        = map(string)
-}
