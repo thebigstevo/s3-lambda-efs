@@ -7,6 +7,10 @@ module "vpc" {
 
 module "lambda" {
   source     = "./modules/lambda"
+  public_subnet_1_id = module.vpc.public_subnet_1_id
+  public_subnet_2_id = module.vpc.public_subnet_2_id
+  public_subnet_3_id = module.vpc.public_subnet_3_id
+  efs_access_point_id = module.efs.efs_access_point_id
   depends_on = [module.vpc]
 }
 

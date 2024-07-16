@@ -20,7 +20,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
 
   environment {
     variables = {
-      aws_efs_access_point = aws_efs_access_point.efs_ap.id
+      aws_efs_access_point = var.efs_access_point_id
     }
   }
 
