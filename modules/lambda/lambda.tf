@@ -12,9 +12,9 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   vpc_config {
     security_group_ids = [aws_security_group.lambda_sg.id]
     subnet_ids         = [
-      aws_subnet.public-subnet-1.id,
-      aws_subnet.public-subnet-2.id,
-      aws_subnet.public-subnet-3.id
+      var.public_subnet_1_id,
+      var.public_subnet_2_id,
+      var.public_subnet_3_id
     ]
   }
 
@@ -28,14 +28,6 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
     arn              = aws_efs_access_point.efs_ap.arn
     local_mount_path = "/mnt/efs"
   }
-
-  depends_on = [
-    aws_efs_access_point.efs_ap,
-    aws_efs_mount_target.efs_mt-1,
-    aws_efs_mount_target.efs_mt-2,
-    aws_efs_mount_target.efs_mt-3,
-    aws_efs_file_system.efs_vol
-  ]
 }
 
 
