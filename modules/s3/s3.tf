@@ -5,9 +5,9 @@ resource "aws_s3_bucket" "receiving_bucket" {
 }
 
 resource "aws_vpc_endpoint" "s3_endpoint" {
-  vpc_id       = aws_vpc.s3toefs-vpc.id
+  vpc_id     = var.vpc_id
   service_name = "com.amazonaws.${var.region}.s3"
-  route_table_ids = [aws_route_table.public-route-table.id]
+  route_table_ids = [module.aws_route_table.public-route-table.id]
 
   tags = {
     Name = "${var.project_name}-s3-endpoint"

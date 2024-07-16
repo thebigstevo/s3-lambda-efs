@@ -1,10 +1,10 @@
-variable "vpc_id" {
+# variable "vpc_id" {
 
-}
+# }
 
-variable "vpc_name" {
+# variable "vpc_name" {
 
-}
+# }
 variable "region" {
   default = "eu-west-1"
 }
@@ -40,4 +40,9 @@ variable "subnet-2-cidr" {
 
 variable "subnet-3-cidr" {
   default = "10.0.3.0/24"
+}
+
+variable "vpc_id" {
+  description = "The ID of the VPC."
+  type        = string
 }

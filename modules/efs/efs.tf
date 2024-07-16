@@ -4,7 +4,7 @@ resource "aws_efs_file_system" "efs_vol" {
     transition_to_ia = "AFTER_30_DAYS"
   }
   tags = {
-    Name = "s3tolto-efs-file-system"
+    Name = "${var.project_name}-file-system"
   }
 }
 

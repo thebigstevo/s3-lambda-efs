@@ -1,14 +1,14 @@
-variable "vpc_id" {
+# variable "vpc_id" {
 
-}
+# }
 
-variable "vpc_name" {
+# variable "vpc_name" {
 
-}
+# }
 variable "region" {
   default = "eu-west-1"
 }
-
+  
 
 variable "vpc_cidr" {
   default = "10.0.0.0/16"
@@ -40,11 +40,4 @@ variable "subnet-2-cidr" {
 
 variable "subnet-3-cidr" {
   default = "10.0.3.0/24"
-}
-
-
-# root_module/variables.tf
-variable "tags" {
-  description = "A map of tags to apply to all resources."
-  type        = map(string)
 }

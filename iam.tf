@@ -26,12 +26,12 @@ resource "aws_iam_policy" "lambda_policy" {
   name        = "lambda_s3_efs_policy"
   description = "Policy for Lambda to access S3 and EFS"
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Sid": "lambdavpcaccess",
-        "Effect": "Allow",
-        "Action": [
+        "Sid" : "lambdavpcaccess",
+        "Effect" : "Allow",
+        "Action" : [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents",
@@ -42,34 +42,34 @@ resource "aws_iam_policy" "lambda_policy" {
           "ec2:AssignPrivateIpAddresses",
           "ec2:UnassignPrivateIpAddresses"
         ],
-        "Resource": "*"
+        "Resource" : "*"
       },
       {
-        "Sid": "lambdaexecutionpolicy",
-        "Effect": "Allow",
-        "Action": [
+        "Sid" : "lambdaexecutionpolicy",
+        "Effect" : "Allow",
+        "Action" : [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents",
           "s3-object-lambda:WriteGetObjectResponse"
         ],
-        "Resource": "*"
+        "Resource" : "*"
       },
       {
-        "Sid": "s3bucketlist",
-        "Effect": "Allow",
-        "Action": [
+        "Sid" : "s3bucketlist",
+        "Effect" : "Allow",
+        "Action" : [
           "s3:*"
         ],
-        "Resource": [
+        "Resource" : [
           "arn:aws:s3:::*",
           "arn:aws:s3:::*/*"
         ]
       },
       {
-        "Sid": "efsaccess",
-        "Effect": "Allow",
-        "Action": [
+        "Sid" : "efsaccess",
+        "Effect" : "Allow",
+        "Action" : [
           "elasticfilesystem:*"
           # "elasticfilesystem:ClientMount",
           # "elasticfilesystem:ClientWrite",
@@ -78,15 +78,15 @@ resource "aws_iam_policy" "lambda_policy" {
           # "elasticfilesystem:DescribeFileSystems",
           # "elasticfilesystem:DescribeMountTargets"
         ],
-        "Resource": "*"
+        "Resource" : "*"
       },
       {
-        "Sid": "invokelambda",
-        "Effect": "Allow",
-        "Action": [
+        "Sid" : "invokelambda",
+        "Effect" : "Allow",
+        "Action" : [
           "lambda:InvokeFunction"
         ],
-        "Resource": "*"
+        "Resource" : "*"
       }
     ]
   })
