@@ -25,6 +25,7 @@ module "lambda" {
   public_subnet_3_id = module.vpc.public_subnet_3_id
   efs_access_point_arn = module.efs.efs_access_point_arn
   lambda_security_group_ids = module.security_groups.lambda_security_group_ids
+  s3_bucket_arn = module.s3.s3_bucket_arn
   lambda_role_arn = module.iam.lambda_role_arn
 
   depends_on = [module.vpc, module.security_groups, module.efs, module.iam]
