@@ -18,16 +18,16 @@ module "iam" {
 
 }
 
-# module "efs" {
-#   source     = "./modules/efs"
-#   public_subnet_1_id = module.vpc.public_subnet_1_id
-#   public_subnet_2_id = module.vpc.public_subnet_2_id
-#   public_subnet_3_id = module.vpc.public_subnet_3_id
-#   efs_sg_id = module.security_groups.efs_security_group_ids
+module "efs" {
+  source     = "./modules/efs"
+  public_subnet_1_id = module.vpc.public_subnet_1_id
+  public_subnet_2_id = module.vpc.public_subnet_2_id
+  public_subnet_3_id = module.vpc.public_subnet_3_id
+  efs_sg_id = module.security_groups.efs_security_group_ids
   
   
-#   depends_on = [module.vpc]
-# }
+  depends_on = [module.vpc]
+}
 
 # module "s3" {
 #   source     = "./modules/s3"
