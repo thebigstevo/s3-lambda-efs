@@ -13,12 +13,10 @@ module "security_groups"{
   depends_on = [module.vpc]
 }
 
-# module "iam" {
-#   source = "./modules/iam"
-#   iam_role_name = var.iam_role_name
-#   assume_role_policy = var.assume_role_policy
-#   depends_on = [module.vpc]
-# }
+module "iam" {
+  source = "./modules/iam"
+
+}
 
 module "lambda" {
   source     = "./modules/lambda"
@@ -27,8 +25,9 @@ module "lambda" {
   public_subnet_3_id = module.vpc.public_subnet_3_id
   efs_access_point_arn = module.efs.efs_access_point_arn
   lambda_security_group_ids = module.security_groups.lambda_security_group_ids
+  lambda_role_arn = module.iam.lambda_role_arn
 
-  depends_on = [module.vpc, module.security_groups, module.efs]
+  depends_on = [module.vpc, module.security_groups, module.efs, module.iam]
 }
 
 module "efs" {
