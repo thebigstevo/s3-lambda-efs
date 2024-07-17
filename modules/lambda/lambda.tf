@@ -5,10 +5,10 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   role          = var.lambda_role_arn
   runtime       = "python3.10"
   filename      = "s3_to_lambda_to_efs.zip"
+  source_code_hash = filebase64sha256("s3_to_lambda_to_efs.zip")
+
   timeout       = "120"
   memory_size   = "128"
-
-  source_code_hash = "s3_to_lambda_to_efs"
   vpc_config {
     security_group_ids = [var.lambda_security_group_ids]
     subnet_ids         = [
