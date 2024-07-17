@@ -51,3 +51,11 @@ variable "route_table_id" {
   description = "Route table ID"
   type = string
 }
+
+variable "lambda_arn" {
+  
+}
+
+variable "function_name" {
+  
+}
