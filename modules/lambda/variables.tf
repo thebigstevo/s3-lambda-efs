@@ -14,3 +14,8 @@ variable "public_subnet_3_id" {
 variable "efs_access_point_arn" {
   
 }
+
+variable "lambda_security_group_ids" {
+  
+}
+
