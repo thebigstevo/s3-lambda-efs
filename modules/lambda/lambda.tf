@@ -10,7 +10,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
 
   source_code_hash = "s3_to_lambda_to_efs"
   vpc_config {
-    security_group_ids = [aws_security_group.lambda_sg.id]
+    security_group_ids = [var.lambda_security_group_ids]
     subnet_ids         = [
       var.public_subnet_1_id,
       var.public_subnet_2_id,
