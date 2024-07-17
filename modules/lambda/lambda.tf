@@ -3,7 +3,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   function_name = "s3_to_lambda_to_efs"
   handler       = "s3_to_lambda_to_efs.lambda_handler"
   role          = var.lambda_role_arn
-  runtime       = "python3.9"
+  runtime       = "python3.10"
   filename      = "s3_to_lambda_to_efs.zip"
   timeout       = "120"
   memory_size   = "128"
