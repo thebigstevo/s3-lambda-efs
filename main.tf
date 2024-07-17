@@ -33,7 +33,7 @@ module "s3" {
   source     = "./modules/s3"
   vpc_id     = module.vpc.vpc_id
   route_table_id= module.vpc.public_route_table_id
-  lambda_arn = module.lambda.lambda_arn
+  # lambda_arn = module.lambda.lambda_arn
   depends_on = [module.vpc]
 }
 
