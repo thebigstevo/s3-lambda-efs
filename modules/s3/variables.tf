@@ -52,10 +52,10 @@ variable "route_table_id" {
   type = string
 }
 
-variable "lambda_arn" {
+# variable "lambda_arn" {
   
-}
+# }
 
-variable "function_name" {
+# variable "function_name" {
   
-}
+# }
