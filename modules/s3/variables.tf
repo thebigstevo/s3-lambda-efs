@@ -46,3 +46,8 @@ variable "vpc_id" {
   description = "The ID of the VPC."
   type        = string
 }
+
+variable "route_table_id" {
+  description = "Route table ID"
+  type = "string"
+}

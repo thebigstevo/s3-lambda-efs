@@ -13,9 +13,8 @@ output "public_subnet_3_id" {
   value = aws_subnet.public-subnet-3.id
 }
 
-output route_table_id {
-    description= "route table ID"
-    value = aws_route_table.public-route-table.id
+output "public_route_table_id" {
+  value = aws_route_table.public-route-table.id
 }
 
 output "vpc_cidr" {
