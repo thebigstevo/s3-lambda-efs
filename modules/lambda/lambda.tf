@@ -25,7 +25,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   }
 
   file_system_config {
-    arn              = aws_efs_access_point.efs_ap.arn
+    arn              = var.efs_access_point_arn
     local_mount_path = "/mnt/efs"
   }
 }

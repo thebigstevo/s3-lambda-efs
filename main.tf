@@ -25,7 +25,7 @@ module "lambda" {
   public_subnet_1_id = module.vpc.public_subnet_1_id
   public_subnet_2_id = module.vpc.public_subnet_2_id
   public_subnet_3_id = module.vpc.public_subnet_3_id
-  efs_access_point_id = module.efs.efs_access_point_id
+  efs_access_point_arn = module.efs.efs_access_point_arn
   depends_on = [module.vpc, module.security_groups, module.efs]
 }
 
