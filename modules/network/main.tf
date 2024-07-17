@@ -8,6 +8,7 @@ resource "aws_vpc" "s3toefs-vpc" {
   }
 }
 
+
 # Subnets
 resource "aws_subnet" "public-subnet-1" {
   cidr_block        = var.subnet-1-cidr

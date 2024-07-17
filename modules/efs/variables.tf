@@ -54,3 +54,7 @@ variable "public_subnet_2_id" {
 variable "public_subnet_3_id" {
   
 }
+
+variable "efs_sg_id" {
+  
+}

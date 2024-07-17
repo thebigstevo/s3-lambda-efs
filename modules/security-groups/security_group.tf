@@ -1,14 +1,14 @@
 # EFS security group
 resource "aws_security_group" "efs_sg" {
   name_prefix = "efs_sg"
-  vpc_id      = aws_vpc.s3toefs-vpc.id
+  vpc_id      = var.vpc_id
   description = "EFS security group"
 
   ingress {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.s3toefs-vpc.cidr_block]  # Allow traffic from within the VPC
+    cidr_blocks = [var.vpc_cidr ]  # Allow traffic from within the VPC
   }
 
   egress {
@@ -22,14 +22,14 @@ resource "aws_security_group" "efs_sg" {
 # Lambda security group
 resource "aws_security_group" "lambda_sg" {
   name_prefix = "lambda_sg"
-  vpc_id      = aws_vpc.s3toefs-vpc.id
+  vpc_id      = var.vpc_id
   description = "Lambda security group"
 
   ingress {
     from_port   = 2049
     to_port     = 2049
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.s3toefs-vpc.cidr_block]  # Allow traffic from within the VPC
+    cidr_blocks = [var.vpc_cidr ]  # Allow traffic from within the VPC
   }
 
   egress {
