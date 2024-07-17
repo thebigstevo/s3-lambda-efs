@@ -9,6 +9,7 @@ module "vpc" {
 module "security_groups"{
   source = "./modules/security-groups"
   vpc_id = module.vpc.vpc_id
+  vpc_cidr = var.vpc_cidr
   depends_on = [module.vpc]
 }
 
