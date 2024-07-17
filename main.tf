@@ -45,6 +45,7 @@ module "efs" {
 module "s3" {
   source     = "./modules/s3"
   vpc_id     = module.vpc.vpc_id
+  lambda_arn = module.lambda.lambda_arn
   depends_on = [module.vpc, module.lambda]
 }
 

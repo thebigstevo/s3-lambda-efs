@@ -22,3 +22,7 @@ resource "aws_s3_bucket_notification" "s3toltoefs_notification" {
     events              = ["s3:ObjectCreated:*"]
   }
 }
+
+variable "lambda_arn" {
+  
+}
