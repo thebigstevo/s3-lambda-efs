@@ -16,13 +16,3 @@ resource "aws_vpc_endpoint" "s3_endpoint" {
 
 
 
-# # S3 bucket notification
-# resource "aws_s3_bucket_notification" "s3toltoefs_notification" {
-#   bucket = aws_s3_bucket.receiving_bucket.id
-#   lambda_function {
-#     lambda_function_arn = var.lambda_arn
-#     events              = ["s3:ObjectCreated:*"]
-#   }
-# }
-
-

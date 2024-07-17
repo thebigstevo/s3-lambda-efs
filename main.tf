@@ -54,3 +54,13 @@ module "lambda" {
 }
 
 
+# S3 bucket notification
+resource "aws_s3_bucket_notification" "s3toltoefs_notification" {
+  bucket = module.s3.s3_bucket_id
+  lambda_function {
+    lambda_function_arn = module.lambda.lambda_arn
+    events              = ["s3:ObjectCreated:*"]
+  }
+}
+
+
