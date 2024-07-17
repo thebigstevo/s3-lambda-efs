@@ -11,6 +11,6 @@ variable "public_subnet_3_id" {
   
 }
 
-variable "eefs_access_point_arn" {
+variable "efs_access_point_arn" {
   
 }
