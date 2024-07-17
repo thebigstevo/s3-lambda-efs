@@ -13,10 +13,10 @@ module "security_groups"{
   depends_on = [module.vpc]
 }
 
-# module "iam" {
-#   source = "./modules/iam"
+module "iam" {
+  source = "./modules/iam"
 
-# }
+}
 
 # module "efs" {
 #   source     = "./modules/efs"
