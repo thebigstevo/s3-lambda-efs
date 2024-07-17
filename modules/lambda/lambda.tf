@@ -2,7 +2,7 @@
 resource "aws_lambda_function" "s3tolambdatoefs" {
   function_name = "s3_to_lambda_to_efs"
   handler       = "s3_to_lambda_to_efs.lambda_handler"
-  role          = aws_iam_role.lambda_role.arn
+  role          = var.lambda_role_arn
   runtime       = "python3.9"
   filename      = "s3_to_lambda_to_efs.zip"
   timeout       = "120"
