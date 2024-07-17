@@ -28,7 +28,7 @@ module "lambda" {
   s3_bucket_arn = module.s3.s3_bucket_arn
   lambda_role_arn = module.iam.lambda_role_arn
 
-  depends_on = [module.vpc, module.security_groups, module.efs, module.iam]
+  depends_on = [module.vpc, module.security_groups, module.efs, module.iam, module.s3]
 }
 
 module "efs" {
