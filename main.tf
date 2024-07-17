@@ -48,6 +48,6 @@ module "s3" {
   route_table_id= module.vpc.public_route_table_id
   function_name = module.lambda.function_name
   lambda_arn = module.lambda.lambda_arn
-  depends_on = [module.vpc, module.lambda]
+  depends_on = [module.vpc]
 }
 
