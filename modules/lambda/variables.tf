@@ -22,3 +22,7 @@ variable "lambda_security_group_ids" {
 variable "lambda_role_arn" {
   
 }
+
+variable "s3_bucket_arn" {
+  
+}

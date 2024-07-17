@@ -37,5 +37,5 @@ resource "aws_lambda_permission" "with_s3" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.s3tolambdatoefs.function_name
   principal     = "s3.amazonaws.com"
-  source_arn    = aws_s3_bucket.receiving_bucket.arn
+  source_arn    = var.s3_bucket_arn
 }
