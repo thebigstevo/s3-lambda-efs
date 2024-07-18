@@ -63,13 +63,13 @@ resource "aws_s3_bucket_notification" "s3toltoefs_notification" {
   }
 }
 
-# Lambda permissions for S3
-resource "aws_lambda_permission" "with_s3" {
-  statement_id  = "s3invokelambda"
-  action        = "lambda:InvokeFunction"
-  function_name = module.lambda.function_name
-  principal     = "s3.amazonaws.com"
-  source_arn    = module.s3.s3_bucket_arn
-}
+# # Lambda permissions for S3
+# resource "aws_lambda_permission" "with_s3" {
+#   statement_id  = "s3invokelambda"
+#   action        = "lambda:InvokeFunction"
+#   function_name = module.lambda.function_name
+#   principal     = "s3.amazonaws.com"
+#   source_arn    = module.s3.s3_bucket_arn
+# }
 
 
