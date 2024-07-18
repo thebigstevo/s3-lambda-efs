@@ -47,7 +47,7 @@ resource "aws_lambda_permission" "with_s3" {
 resource "aws_s3_bucket_notification" "s3toltoefs_notification" {
   bucket = var.s3_bucket_id
   lambda_function {
-    lambda_function_arn = module.lambda.lambda_arn
+    lambda_function_arn = aws_lambda_function.s3tolambdatoefs.arn
     events              = ["s3:ObjectCreated:*"]
   }
 }
