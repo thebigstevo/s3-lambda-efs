@@ -1,14 +1,14 @@
-variable "vpc_id" {
+# variable "vpc_id" {
 
-}
+# }
 
-variable "vpc_name" {
+# variable "vpc_name" {
 
-}
+# }
 variable "region" {
   default = "eu-west-1"
 }
-
+  
 
 variable "vpc_cidr" {
   default = "10.0.0.0/16"
@@ -42,3 +42,19 @@ variable "subnet-3-cidr" {
   default = "10.0.3.0/24"
 }
 
+####from root module
+variable "public_subnet_1_id" {
+  
+}
+
+variable "public_subnet_2_id" {
+  
+}
+
+variable "public_subnet_3_id" {
+  
+}
+
+variable "efs_sg_id" {
+  
+}
