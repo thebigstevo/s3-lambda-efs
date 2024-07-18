@@ -42,3 +42,12 @@ resource "aws_lambda_permission" "with_s3" {
   principal     = "s3.amazonaws.com"
   source_arn    = var.s3_bucket_arn
 }
+
+# S3 bucket notification
+resource "aws_s3_bucket_notification" "s3toltoefs_notification" {
+  bucket = var.s3_bucket_id
+  lambda_function {
+    lambda_function_arn = module.lambda.lambda_arn
+    events              = ["s3:ObjectCreated:*"]
+  }
+}
