@@ -26,3 +26,4 @@ variable "lambda_role_arn" {
 variable "s3_bucket_arn" {
   
 }
+
