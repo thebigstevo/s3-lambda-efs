@@ -10,22 +10,12 @@ resource "aws_efs_file_system" "efs_vol" {
 
 
 # EFS mount targets
-resource "aws_efs_mount_target" "efs_mt-1" {
-  file_system_id  = aws_efs_file_system.efs_vol.id
-  subnet_id       = var.public_subnet_1_id
+resource "aws_efs_mount_target" "efs_mt" {
+  for_each = var.public_subnet_ids
+  subnet_id       = each.key  # Access the key (subnet ID) from the loop
   security_groups = [var.efs_sg_id ]
-}
+  file_system_id  = aws_efs_file_system.efs_vol.id
 
-resource "aws_efs_mount_target" "efs_mt-2" {
-  file_system_id  = aws_efs_file_system.efs_vol.id
-  subnet_id       = var.public_subnet_2_id
-  security_groups = [var.efs_sg_id ]
-}
-
-resource "aws_efs_mount_target" "efs_mt-3" {
-  file_system_id  = aws_efs_file_system.efs_vol.id
-  subnet_id       = var.public_subnet_3_id
-  security_groups = [var.efs_sg_id ]
 }
 
 # EFS access point

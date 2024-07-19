@@ -10,7 +10,6 @@ resource "aws_vpc" "s3toefs-vpc" {
 
 resource "aws_subnet" "public_subnet" {
   count = length(var.availability_zones)
-
   cidr_block        = var.subnet_cidrs[count.index]
   vpc_id            = aws_vpc.s3toefs-vpc.id
   availability_zone = var.availability_zones[count.index]

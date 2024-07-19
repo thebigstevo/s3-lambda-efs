@@ -14,9 +14,7 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   vpc_config {
     security_group_ids = [var.lambda_security_group_ids]
     subnet_ids         = [
-      var.public_subnet_1_id,
-      var.public_subnet_2_id,
-      var.public_subnet_3_id
+        var.public_subnet_ids
     ]
   }
 

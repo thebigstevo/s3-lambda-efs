@@ -43,18 +43,9 @@ variable "subnet-3-cidr" {
 }
 
 ####from root module
-variable "public_subnet_1_id" {
+variable "public_subnet_ids" {
   
 }
-
-variable "public_subnet_2_id" {
-  
-}
-
-variable "public_subnet_3_id" {
-  
-}
-
 variable "efs_sg_id" {
   
 }
