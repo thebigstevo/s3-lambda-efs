@@ -1,9 +1,7 @@
 module "vpc" {
-  source       = "./modules/network"
+  source       = "./modules/vpc"
   project_name = var.project_name
   vpc_cidr = var.vpc_cidr
-  vpc_id = module.vpc.vpc_id
-
 }
 
 module "security_groups"{
@@ -15,7 +13,6 @@ module "security_groups"{
 
 module "iam" {
   source = "./modules/iam"
-
 }
 
 module "efs" {
@@ -24,8 +21,6 @@ module "efs" {
   public_subnet_2_id = module.vpc.public_subnet_2_id
   public_subnet_3_id = module.vpc.public_subnet_3_id
   efs_sg_id = module.security_groups.efs_security_group_ids
-  
-  
   depends_on = [module.vpc]
 }
 
@@ -33,12 +28,8 @@ module "s3" {
   source     = "./modules/s3"
   vpc_id     = module.vpc.vpc_id
   route_table_id= module.vpc.public_route_table_id
-  # lambda_arn = module.lambda.lambda_arn
-  # function_name = module.lambda.function_name
   depends_on = [module.vpc]
 }
-
-
 
 module "lambda" {
   source     = "./modules/lambda"
@@ -53,23 +44,5 @@ module "lambda" {
   depends_on = [module.efs, module.iam, module.s3]
 }
 
-
-# # S3 bucket notification
-# resource "aws_s3_bucket_notification" "s3toltoefs_notification" {
-#   bucket = module.s3.s3_bucket_id
-#   lambda_function {
-#     lambda_function_arn = module.lambda.lambda_arn
-#     events              = ["s3:ObjectCreated:*"]
-#   }
-# }
-
-# # Lambda permissions for S3
-# resource "aws_lambda_permission" "with_s3" {
-#   statement_id  = "s3invokelambda"
-#   action        = "lambda:InvokeFunction"
-#   function_name = module.lambda.function_name
-#   principal     = "s3.amazonaws.com"
-#   source_arn    = module.s3.s3_bucket_arn
-# }
 
 

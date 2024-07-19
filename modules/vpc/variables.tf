@@ -42,9 +42,12 @@ variable "subnet-3-cidr" {
   default = "10.0.3.0/24"
 }
 
-###Passed from modules
-variable "vpc_id"{
-  description = "The ID of the VPC"
-  type= string
+variable "availability_zones" {
+  type = list(string)
+  default = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
 }
 
+variable "subnet_cidrs" {
+  type = list(string)
+  default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+}
