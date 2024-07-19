@@ -4,15 +4,15 @@ output "vpc_id"{
 }
 
 output "public_subnet_1_id" {
-  value = aws_subnet.public_subnet[0].id
-}
-
-output "public_subnet_2_id" {
   value = aws_subnet.public_subnet[1].id
 }
 
-output "public_subnet_3_id" {
+output "public_subnet_2_id" {
   value = aws_subnet.public_subnet[2].id
+}
+
+output "public_subnet_3_id" {
+  value = aws_subnet.public_subnet[3].id
 }
 
 output "public_route_table_id" {
