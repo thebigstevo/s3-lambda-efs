@@ -7,7 +7,7 @@ output "public_subnet_ids" {
   value = aws_subnet.public_subnet[*].id
 }
 output "public_route_table_id" {
-  value = aws_route_table.public-route-table.id
+  value = aws_route_table.public_route_table.id
 }
 
 output "vpc_cidr" {
