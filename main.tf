@@ -31,7 +31,7 @@ module "s3" {
 
 module "lambda" {
   source     = "./modules/lambda"
-  public_subnet_ids = module.vpc.subnet_ids  # List of subnet IDs
+  public_subnet_ids = module.vpc.public_subnet_ids  # List of subnet IDs
   efs_access_point_arn = module.efs.efs_access_point_arn
   lambda_security_group_ids = module.security_groups.lambda_security_group_ids
   s3_bucket_arn = module.s3.s3_bucket_arn
