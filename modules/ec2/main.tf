@@ -1,14 +1,8 @@
-resource aws_instance "test_server" {
-   ami = var.ami_id #Amazon Linux 2023 AMI 2023.5.20240708.0 x86_64 HVM kernel-6.1
-   instance_type = var.instance_type
-
-}
-
 
 #create testserver
 resource "aws_instance" "test_server" {
-  ami                         = "ami-0b995c42184e99f98" #eu-west-1
-  instance_type               = "t2.micro"
+   ami = var.ami_id #Amazon Linux 2023 AMI 2023.5.20240708.0 x86_64 HVM kernel-6.1
+   instance_type = var.instance_type
   associate_public_ip_address = true
   subnet_id                   = var.ec2_security_group_ids
   security_groups             = [aws_security_group.webserver_sg.id]
