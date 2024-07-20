@@ -49,6 +49,7 @@ resource "aws_iam_policy" "lambda_policy" {
         ],
         "Resource": [
           "${var.s3_bucket_arn}",
+          "${var.s3_bucket_arn}/*"
         ]
       },
       {
