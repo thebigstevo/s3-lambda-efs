@@ -19,7 +19,7 @@ variable "project_name" {
 }
 
 variable "instance_type" {
-  default = "t2-micro"
+  default = "t2.micro"
 }
 
 variable "ami_id" {

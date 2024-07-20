@@ -51,5 +51,5 @@ module "ec2" {
   public_subnet_ids      = module.vpc.public_subnet_ids
   ami_id                 = var.ami_id
   instance_type          = var.instance_type
-
+  depends_on = [ module.vpc,module.efs ]
 }
