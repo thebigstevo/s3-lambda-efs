@@ -13,6 +13,10 @@ module "security_groups" {
 
 module "iam" {
   source = "./modules/iam"
+  s3_bucket_arn = module.s3.s3_bucket_arn
+  efs_access_point_arn      = module.efs.efs_access_point_arn
+
+  depends_on = [ module.s3,module.efs ]
 }
 
 module "efs" {

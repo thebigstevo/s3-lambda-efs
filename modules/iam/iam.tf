@@ -14,77 +14,121 @@ resource "aws_iam_role" "lambda_role" {
     ]
   })
 }
-
-# # Attach the AmazonElasticFileSystemClientFullAccess managed policy to the Lambda role
-# resource "aws_iam_role_policy_attachment" "lambda_role_attachment" {
-#   role       = aws_iam_role.lambda_role.name
-#   policy_arn = "arn:aws:iam::aws:policy/AmazonElasticFileSystemClientFullAccess"
-# }
-
-# IAM Policy for Lambda
 resource "aws_iam_policy" "lambda_policy" {
   name        = "lambda_s3_efs_policy"
   description = "Policy for Lambda to access S3 and EFS"
   policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
+    "Version": "2012-10-17",
+    "Statement": [
       {
-        "Sid" : "lambdavpcaccess",
-        "Effect" : "Allow",
-        "Action" : [
+        "Sid": "CloudWatchLogs",
+        "Effect": "Allow",
+        "Action": [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
-          "logs:PutLogEvents",
+          "logs:PutLogEvents"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Sid": "VPCNetwork",
+        "Effect": "Allow",
+        "Action": [
           "ec2:CreateNetworkInterface",
           "ec2:DescribeNetworkInterfaces",
-          "ec2:DescribeSubnets",
-          "ec2:DeleteNetworkInterface",
-          "ec2:AssignPrivateIpAddresses",
-          "ec2:UnassignPrivateIpAddresses"
+          "ec2:DeleteNetworkInterface"
         ],
-        "Resource" : "*"
+        "Resource": "*"
       },
       {
-        "Sid" : "lambdaexecutionpolicy",
-        "Effect" : "Allow",
-        "Action" : [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents",
-          "s3-object-lambda:WriteGetObjectResponse"
+        "Sid": "S3Access",
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:ListBucket"
         ],
-        "Resource" : "*"
-      },
-      {
-        "Sid" : "s3bucketlist",
-        "Effect" : "Allow",
-        "Action" : [
-          "s3:*"
-        ],
-        "Resource" : [
-          "arn:aws:s3:::*",
-          "arn:aws:s3:::*/*"
+        "Resource": [
+          "${var.s3_bucket_arn}",
         ]
       },
       {
-        "Sid" : "efsaccess",
-        "Effect" : "Allow",
-        "Action" : [
-          "elasticfilesystem:*"
+        "Sid": "EFSAccess",
+        "Effect": "Allow",
+        "Action": [
+          "elasticfilesystem:ClientMount",
+          "elasticfilesystem:ClientWrite",
+          "elasticfilesystem:DescribeMountTargets"
         ],
-        "Resource" : "*"
-      },
-      {
-        "Sid" : "invokelambda",
-        "Effect" : "Allow",
-        "Action" : [
-          "lambda:InvokeFunction"
-        ],
-        "Resource" : "*"
+        "Resource": "${var.efs_access_point_arn}"
       }
     ]
   })
 }
+
+# IAM Policy for Lambda
+# resource "aws_iam_policy" "lambda_policy" {
+#   name        = "lambda_s3_efs_policy"
+#   description = "Policy for Lambda to access S3 and EFS"
+#   policy = jsonencode({
+#     "Version" : "2012-10-17",
+#     "Statement" : [
+#       {
+#         "Sid" : "lambdavpcaccess",
+#         "Effect" : "Allow",
+#         "Action" : [
+#           "logs:CreateLogGroup",
+#           "logs:CreateLogStream",
+#           "logs:PutLogEvents",
+#           "ec2:CreateNetworkInterface",
+#           "ec2:DescribeNetworkInterfaces",
+#           "ec2:DescribeSubnets",
+#           "ec2:DeleteNetworkInterface",
+#           "ec2:AssignPrivateIpAddresses",
+#           "ec2:UnassignPrivateIpAddresses"
+#         ],
+#         "Resource" : "*"
+#       },
+#       {
+#         "Sid" : "lambdaexecutionpolicy",
+#         "Effect" : "Allow",
+#         "Action" : [
+#           "logs:CreateLogGroup",
+#           "logs:CreateLogStream",
+#           "logs:PutLogEvents",
+#           "s3-object-lambda:WriteGetObjectResponse"
+#         ],
+#         "Resource" : "*"
+#       },
+#       {
+#         "Sid" : "s3bucketlist",
+#         "Effect" : "Allow",
+#         "Action" : [
+#           "s3:*"
+#         ],
+#         "Resource" : [
+#           "arn:aws:s3:::*",
+#           "arn:aws:s3:::*/*"
+#         ]
+#       },
+#       {
+#         "Sid" : "efsaccess",
+#         "Effect" : "Allow",
+#         "Action" : [
+#           "elasticfilesystem:*"
+#         ],
+#         "Resource" : "*"
+#       },
+#       {
+#         "Sid" : "invokelambda",
+#         "Effect" : "Allow",
+#         "Action" : [
+#           "lambda:InvokeFunction"
+#         ],
+#         "Resource" : "*"
+#       }
+#     ]
+#   })
+# }
 
 
 # Attach the IAM Policy to the Role
