@@ -37,3 +37,4 @@ override.tf.json
 terraform.rc
 
 *.history*
+*.DS_Store*
