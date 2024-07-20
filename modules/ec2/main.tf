@@ -5,7 +5,7 @@ resource "aws_instance" "test_server" {
    instance_type = var.instance_type
   associate_public_ip_address = true
   subnet_id     = element(var.public_subnet_ids, count.index)
-  security_groups             = [aws_security_group.webserver_sg.id]
+  security_groups             = [var.ec2_security_group_ids]
   # EBS Block Device Mapping
   root_block_device {
     volume_size = 16
