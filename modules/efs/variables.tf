@@ -1,7 +1,7 @@
 variable "region" {
   default = "eu-west-1"
 }
-  
+
 
 variable "vpc_cidr" {
   default = "10.0.0.0/16"
@@ -37,8 +37,8 @@ variable "subnet-3-cidr" {
 
 ####from root module
 variable "public_subnet_ids" {
-   type = list(string) 
+  type = list(string)
 }
 variable "efs_sg_id" {
-  
+
 }
