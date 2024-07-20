@@ -12,9 +12,9 @@ resource "aws_efs_file_system" "efs_vol" {
 # EFS mount targets
 resource "aws_efs_mount_target" "efs_mt" {
   for_each = var.public_subnet_ids
-  subnet_id       = each.key  # Access the key (subnet ID) from the loop
-  security_groups = [var.efs_sg_id ]
-  file_system_id  = aws_efs_file_system.efs_vol.id
+    subnet_id       = each.key  # Access the key (subnet ID) from the loop
+    security_groups = [var.efs_sg_id ]
+    file_system_id  = aws_efs_file_system.efs_vol.id
 
 }
 
