@@ -4,7 +4,7 @@ resource "aws_instance" "test_server" {
    ami = var.ami_id #Amazon Linux 2023 AMI 2023.5.20240708.0 x86_64 HVM kernel-6.1
    instance_type = var.instance_type
   associate_public_ip_address = true
-  subnet_id                   = var.ec2_security_group_ids
+  subnet_id     = element(var.public_subnet_ids, count.index)
   security_groups             = [aws_security_group.webserver_sg.id]
   # EBS Block Device Mapping
   root_block_device {
