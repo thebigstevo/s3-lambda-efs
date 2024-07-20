@@ -37,7 +37,7 @@ variable "subnet-3-cidr" {
 
 ####from root module
 variable "public_subnet_ids" {
-  
+   type = list(string) 
 }
 variable "efs_sg_id" {
   
