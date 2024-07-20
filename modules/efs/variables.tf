@@ -1,10 +1,3 @@
-# variable "vpc_id" {
-
-# }
-
-# variable "vpc_name" {
-
-# }
 variable "region" {
   default = "eu-west-1"
 }
