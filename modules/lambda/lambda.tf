@@ -12,10 +12,9 @@ resource "aws_lambda_function" "s3tolambdatoefs" {
   timeout       = "120"
   memory_size   = "128"
   vpc_config {
-    security_group_ids = [var.lambda_security_group_ids]
-    subnet_ids         = [
-        var.public_subnet_ids
-    ]
+    security_group_ids = var.lambda_security_group_ids
+    subnet_ids         =  var.public_subnet_ids
+    
   }
 
   environment {
