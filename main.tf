@@ -4,10 +4,15 @@ module "vpc" {
   vpc_cidr     = var.vpc_cidr
   availability_zones = var.availability_zones
   subnet_cidrs = var.subnet_cidrs
+  enable_dns_hostnames = var.enable_dns_hostnames
+  enable_dns_support = var.enable_dns_support
+  map_public_ip_on_launch = var.map_public_ip_on_launch
+  region = var.region
 }
 
 module "security_groups" {
   source     = "./modules/security-groups"
+  project_name = var.project_name
   vpc_id     = module.vpc.vpc_id
   vpc_cidr   = var.vpc_cidr
   depends_on = [module.vpc]

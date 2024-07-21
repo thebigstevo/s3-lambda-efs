@@ -28,7 +28,7 @@ resource "aws_security_group" "ec2_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow traffic from within the VPC
+    cidr_blocks = ["0.0.0.0/0"]  # Allow traffic from from outside the VPC
   }
 
   egress {
