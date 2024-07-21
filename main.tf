@@ -2,6 +2,8 @@ module "vpc" {
   source       = "./modules/vpc"
   project_name = var.project_name
   vpc_cidr     = var.vpc_cidr
+  availability_zones = var.availability_zones
+  subnet_cidrs = var.subnet_cidrs
 }
 
 module "security_groups" {
@@ -51,5 +53,5 @@ module "ec2" {
   public_subnet_ids      = module.vpc.public_subnet_ids
   ami_id                 = var.ami_id
   instance_type          = var.instance_type
-  depends_on = [ module.vpc,module.efs ]
+  depends_on = [ module.vpc, module.efs ]
 }
