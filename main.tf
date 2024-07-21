@@ -12,11 +12,11 @@ module "security_groups" {
 }
 
 module "iam" {
-  source = "./modules/iam"
-  s3_bucket_arn = module.s3.s3_bucket_arn
-  efs_access_point_arn      = module.efs.efs_access_point_arn
+  source               = "./modules/iam"
+  s3_bucket_arn        = module.s3.s3_bucket_arn
+  efs_access_point_arn = module.efs.efs_access_point_arn
 
-  depends_on = [ module.s3,module.efs ]
+  depends_on = [module.s3, module.efs]
 }
 
 module "efs" {
@@ -45,4 +45,11 @@ module "lambda" {
 }
 
 
-
+module "ec2" {
+  source                 = "./modules/ec2"
+  ec2_security_group_ids = module.security_groups.ec2_security_group_id
+  public_subnet_ids      = module.vpc.public_subnet_ids
+  ami_id                 = var.ami_id
+  instance_type          = var.instance_type
+  depends_on = [ module.vpc,module.efs ]
+}
