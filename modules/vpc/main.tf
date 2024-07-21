@@ -7,7 +7,6 @@ resource "aws_vpc" "s3toefs-vpc" {
     Name = "${var.project_name}-vpc"
 
   }
-  depends_on = [ aws_route_table.public_route_table, aws_route_table_association.public_subnet_association ]
 }
 
 
