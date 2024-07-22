@@ -26,9 +26,6 @@ variable "ami_id" {
   default = "ami-0b995c42184e99f98"
 }
 
-#----------------------------------------------
-# VPC Variables
-#----------------------------------------------
 variable "enable_dns_hostnames" {
   type        = bool
   description = "Enable DNS hostnames"
