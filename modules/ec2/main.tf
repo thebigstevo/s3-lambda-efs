@@ -19,7 +19,8 @@ resource "aws_instance" "test_server" {
     #!/bin/bash
     sudo mkdir efs
     sudo yum install -y amazon-efs-utils
-    sudo mount -t /efs -o tls,accesspoint="${var.efs_access_point_id}" ""${var.efs_access_point_id}:/ /efs
+    sudo mount -t efs -o tls,accesspoint="${var.efs_access_point_id}" "${var.efs_file_system_id}":/ efs
   EOF
 
     }
+
