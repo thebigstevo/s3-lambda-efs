@@ -44,12 +44,12 @@ resource "aws_security_group" "lambda_sg" {
   vpc_id      = var.vpc_id
   description = "Lambda security group"
 
-  ingress {
-    from_port   = 2049
-    to_port     = 2049
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr ]  # Allow traffic from within the VPC
-  }
+  # ingress {
+  #   from_port   = 2049
+  #   to_port     = 2049
+  #   protocol    = "tcp"
+  #   cidr_blocks = [var.vpc_cidr ]  # Allow traffic from within the VPC
+  # }
 
   egress {
     from_port   = 0
