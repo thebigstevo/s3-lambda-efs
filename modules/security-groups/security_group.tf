@@ -28,7 +28,7 @@ resource "aws_security_group" "ec2_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow traffic from within the VPC
+    cidr_blocks = ["0.0.0.0/0"]  # Allow traffic from from outside the VPC
   }
 
   egress {
@@ -43,13 +43,6 @@ resource "aws_security_group" "lambda_sg" {
   name_prefix = "lambda_sg"
   vpc_id      = var.vpc_id
   description = "Lambda security group"
-
-  ingress {
-    from_port   = 2049
-    to_port     = 2049
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr ]  # Allow traffic from within the VPC
-  }
 
   egress {
     from_port   = 0

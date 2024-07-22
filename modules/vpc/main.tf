@@ -1,19 +1,21 @@
 # VPC
 resource "aws_vpc" "s3toefs-vpc" {
   cidr_block           = var.vpc_cidr
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_hostnames = var.enable_dns_hostnames
+  enable_dns_support   = var.enable_dns_support
   tags = {
     Name = "${var.project_name}-vpc"
+
   }
 }
+
 
 resource "aws_subnet" "public_subnet" {
   count = length(var.availability_zones)
   cidr_block        = var.subnet_cidrs[count.index]
   vpc_id            = aws_vpc.s3toefs-vpc.id
   availability_zone = var.availability_zones[count.index]
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = var.map_public_ip_on_launch
   tags = {
     Name = "${var.project_name}-public-subnet-${count.index + 1}"
   }
@@ -45,4 +47,5 @@ resource "aws_route_table_association" "public_subnet_association" {
 
   route_table_id = aws_route_table.public_route_table.id
   subnet_id      = aws_subnet.public_subnet[count.index].id
+  
 }
