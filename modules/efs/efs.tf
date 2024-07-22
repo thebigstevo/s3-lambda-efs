@@ -42,6 +42,6 @@ resource "aws_efs_access_point" "efs_ap" {
   }
 
   tags = {
-    Name = "${var.project-name}-access-point"
+    Name = "${var.project_name}-access-point"
   }
 }

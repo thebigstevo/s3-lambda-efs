@@ -30,28 +30,28 @@ variable "ami_id" {
 # VPC Variables
 #----------------------------------------------
 variable "enable_dns_hostnames" {
-  type = bool
+  type        = bool
   description = "Enable DNS hostnames"
-  default = true
+  default     = true
 }
 
 variable "enable_dns_support" {
-  type = bool
+  type        = bool
   description = "Enable DNS support"
-  default = true
+  default     = true
 }
 variable "map_public_ip_on_launch" {
-  type = bool
+  type        = bool
   description = "map public ip on launch"
-  default = true
+  default     = true
 }
 
 variable "availability_zones" {
-  type = list(string)
+  type    = list(string)
   default = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
 }
 
 variable "subnet_cidrs" {
-  type = list(string)
+  type    = list(string)
   default = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }

@@ -1,21 +1,21 @@
 module "vpc" {
-  source       = "./modules/vpc"
-  project_name = var.project_name
-  vpc_cidr     = var.vpc_cidr
-  availability_zones = var.availability_zones
-  subnet_cidrs = var.subnet_cidrs
-  enable_dns_hostnames = var.enable_dns_hostnames
-  enable_dns_support = var.enable_dns_support
+  source                  = "./modules/vpc"
+  project_name            = var.project_name
+  vpc_cidr                = var.vpc_cidr
+  availability_zones      = var.availability_zones
+  subnet_cidrs            = var.subnet_cidrs
+  enable_dns_hostnames    = var.enable_dns_hostnames
+  enable_dns_support      = var.enable_dns_support
   map_public_ip_on_launch = var.map_public_ip_on_launch
-  region = var.region
+  region                  = var.region
 }
 
 module "security_groups" {
-  source     = "./modules/security-groups"
+  source       = "./modules/security-groups"
   project_name = var.project_name
-  vpc_id     = module.vpc.vpc_id
-  vpc_cidr   = var.vpc_cidr
-  depends_on = [module.vpc]
+  vpc_id       = module.vpc.vpc_id
+  vpc_cidr     = var.vpc_cidr
+  depends_on   = [module.vpc]
 }
 
 module "iam" {
@@ -30,6 +30,9 @@ module "efs" {
   source            = "./modules/efs"
   public_subnet_ids = module.vpc.public_subnet_ids
   efs_sg_id         = module.security_groups.efs_security_group_ids
+  project_name      = var.project_name
+  vpc_cidr          = var.vpc_cidr
+  region            = var.region
   depends_on        = [module.vpc]
 }
 
@@ -58,5 +61,5 @@ module "ec2" {
   public_subnet_ids      = module.vpc.public_subnet_ids
   ami_id                 = var.ami_id
   instance_type          = var.instance_type
-  depends_on = [ module.vpc, module.efs ]
+  depends_on             = [module.vpc, module.efs]
 }
