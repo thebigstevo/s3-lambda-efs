@@ -16,10 +16,10 @@ resource "aws_instance" "test_server" {
     volume_type = "gp3"
   }
   user_data = <<-EOF
-                    #!/bin/bash
-                    sudo mkdir efs
-                    sudo yum install -y amazon-efs-utils
-                    sudo mount -t efs -o tls,accesspoint=fsap-042d50429dc0cb051 fs-07e61a24fc4e3e043:/ efs
-             EOF
+    #!/bin/bash
+    sudo mkdir efs
+    sudo yum install -y amazon-efs-utils
+    sudo mount -t efs -o tls,accesspoint=fsap-042d50429dc0cb051 fs-07e61a24fc4e3e043:/ efs
+  EOF
 
-}
+    }
