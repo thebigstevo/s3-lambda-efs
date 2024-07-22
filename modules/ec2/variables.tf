@@ -17,3 +17,11 @@ variable "public_subnet_ids" {
   type        = list(string)
   description = "A list of IDs for created subnets"
 }
+
+variable "efs_access_point_id" {
+  
+}
+
+variable "efs_file_system_id" {
+  
+}

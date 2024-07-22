@@ -61,5 +61,7 @@ module "ec2" {
   public_subnet_ids      = module.vpc.public_subnet_ids
   ami_id                 = var.ami_id
   instance_type          = var.instance_type
+  efs_file_system_id     = module.efs.aws_efs_file_system_id
+  efs_access_point_id = module.efs.efs_access_point_id
   depends_on             = [module.vpc, module.efs]
 }
