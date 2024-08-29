@@ -32,7 +32,7 @@ resource "aws_efs_access_point" "efs_ap" {
   }
 
   root_directory {
-    path = "/"
+    path = "/subdirectory"
 
     creation_info {
       owner_gid   = 1000
