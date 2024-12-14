@@ -5,6 +5,17 @@
 # variable "vpc_name" {
 
 # }
+
+variable "aws_access_key" {
+  description = "AWS Access Key"
+  
+}
+
+variable "aws_secret_key" {
+  description = "AWS secret key"
+  
+}
+
 variable "region" {
   default = "eu-west-1"
 }
